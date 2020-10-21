@@ -14,7 +14,9 @@ public class CensusAnalyserTest {
 	private static String CORRECT_CSV_FILE_PATH = "E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\test\\resources\\IndianStateCensusData.csv";
 	private static String WRONG_CSV_FILE_PATH = "E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\IndianStateCensusData.csv";
 	private static String INCORRECT_FILE_TYPE_CSV_PATH = "E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\test\\resources\\IndianStateCensusData.java";
-	private static String INCORRECT_DELIMETER_CSV="E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\test\\resources\\IndianCSVWithWrongDelimeter.txt";
+	private static String INCORRECT_DELIMETER_CSV = "E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\test\\resources\\IndianCSVWithWrongDelimeter.csv";
+	private static String WRONG_HEADER = "E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\test\\resources\\WrongHeaderCensus.csv";
+
 	@Test
 	public void givenIndianCensusCSVFile_ShouldReturnCorrectNumberOfRecordTest() {
 		CensusAnalyser censusAnalyzerObj = new CensusAnalyser();
@@ -50,13 +52,14 @@ public class CensusAnalyserTest {
 			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
 		}
 	}
+
 	@Test
 	public void givenWrongDelimeter_IndianCensusCSVFile_ShouldReturnCustomExceptionTest() {
 		try {
 			CensusAnalyser censusAnalyzerObj = new CensusAnalyser();
 			ExpectedException exceptionRule = ExpectedException.none(); // Allow us to verify the Exception thrown
 			exceptionRule.expect(CensusAnalyserException.class);
-			censusAnalyzerObj.loadIndiaCensusData(INCORRECT_FILE_TYPE_CSV_PATH);
+			censusAnalyzerObj.loadIndiaCensusData(INCORRECT_DELIMETER_CSV);
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
 		}

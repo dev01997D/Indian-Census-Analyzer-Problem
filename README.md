@@ -1,1 +1,0 @@
-# Indian-Census-Analyzer-Problem
