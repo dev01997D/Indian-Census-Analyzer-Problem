@@ -64,4 +64,16 @@ public class CensusAnalyserTest {
 			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
 		}
 	}
+
+	@Test
+	public void givenIncorrectHeaderIntoCSVFile_ShouldReturnCustomExceptionTest() {
+		try {
+			CensusAnalyser censusAnalyserObj = new CensusAnalyser();
+			ExpectedException exceptionRule = ExpectedException.none();
+			exceptionRule.expect(CensusAnalyserException.class);
+			censusAnalyserObj.loadIndiaCensusData(WRONG_HEADER);
+		} catch (CensusAnalyserException e) {
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+		}
+	}
 }
