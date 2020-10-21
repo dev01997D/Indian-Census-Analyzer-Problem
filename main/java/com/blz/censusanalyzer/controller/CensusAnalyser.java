@@ -3,21 +3,21 @@ package com.blz.censusanalyzer.controller;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
 public class CensusAnalyser {
-	private static String CSV_FILE_PATH="E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\test\\resources\\IndianStateCensusData.csv";
-	public int loadIndiaCensusData(String csvFilePath) {
+	public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
-			
+
 			CsvToBeanBuilder<IndiaCensusCSV> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
 			csvToBeanBuilder.withType(IndiaCensusCSV.class);
 			csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
-			
+
 			CsvToBean<IndiaCensusCSV> csvToBean = csvToBeanBuilder.build();
 			Iterator<IndiaCensusCSV> censusCSVIterator = csvToBean.iterator();
 			int numOfEntries = 0;
@@ -26,15 +26,9 @@ public class CensusAnalyser {
 				censusCSVIterator.next();
 			}
 			return numOfEntries;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
+		} catch (IOException e) {
+			throw new CensusAnalyserException(e.getMessage(),
+					CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
 		}
-	}
-	
-	public static void main(String[] args) {
-		CensusAnalyser censusAnalyzerObj=new CensusAnalyser();
-		int numOfEntries=censusAnalyzerObj.loadIndiaCensusData(CSV_FILE_PATH);
-		System.out.println(numOfEntries);
 	}
 }
