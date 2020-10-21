@@ -16,6 +16,7 @@ public class CensusAnalyserTest {
 	private static String INCORRECT_FILE_TYPE_CSV_PATH = "E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\test\\resources\\IndianStateCensusData.java";
 	private static String INCORRECT_DELIMETER_CSV = "E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\test\\resources\\IndianCSVWithWrongDelimeter.csv";
 	private static String WRONG_HEADER = "E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\test\\resources\\WrongHeaderCensus.csv";
+	private static String CORRECT_STATE_CODE_CSV_FILE_PATH = "E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\test\\resources\\IndianStateCodesCSV.csv";
 
 	@Test
 	public void givenIndianCensusCSVFile_ShouldReturnCorrectNumberOfRecordTest() {
@@ -74,6 +75,17 @@ public class CensusAnalyserTest {
 			censusAnalyserObj.loadIndiaCensusData(WRONG_HEADER);
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+		}
+	}
+	@Test
+	public void givenStateCodeCSVFile_ShouldReturnCorrectNumberOfRecordTest() {
+		CensusAnalyser censusAnalyzerObj = new CensusAnalyser();
+		int numOfEntries;
+		try {
+			numOfEntries = censusAnalyzerObj.loadIndianStatesCodeData(CORRECT_STATE_CODE_CSV_FILE_PATH);
+			Assert.assertEquals(37, numOfEntries);
+		} catch (CensusAnalyserException e) {
+			e.printStackTrace();
 		}
 	}
 }
