@@ -33,7 +33,7 @@ public class CensusAnalyser {
 		}
 	}
 
-	public static int loadIndianStatesCodeData(String stateCodecsvFilePath) throws CensusAnalyserException {
+	public int loadIndianStatesCodeData(String stateCodecsvFilePath) throws CensusAnalyserException {
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(stateCodecsvFilePath));
 
