@@ -13,7 +13,7 @@ import com.blz.censusanalyzer.controller.CensusAnalyserException;
 public class CensusAnalyserTest {
 	private static String CORRECT_CSV_FILE_PATH = "E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\test\\resources\\IndianStateCensusData.csv";
 	private static String WRONG_CSV_FILE_PATH = "E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\IndianStateCensusData.csv";
-
+	private static String INCORRECT_FILE_TYPE_CSV_PATH = "E:\\Eclipse-Workspace-java-developer\\CensusAnalyzerAssignment\\src\\test\\resources\\IndianStateCensusData.java";
 	@Test
 	public void givenIndianCensusCSVFile_ShouldReturnCorrectNumberOfRecordTest() {
 		CensusAnalyser censusAnalyzerObj = new CensusAnalyser();
@@ -44,7 +44,7 @@ public class CensusAnalyserTest {
 			CensusAnalyser censusAnalyzerObj = new CensusAnalyser();
 			ExpectedException exceptionRule = ExpectedException.none(); // Allow us to verify the Exception thrown
 			exceptionRule.expect(CensusAnalyserException.class);
-			censusAnalyzerObj.loadIndiaCensusData(CORRECT_CSV_FILE_PATH);
+			censusAnalyzerObj.loadIndiaCensusData(INCORRECT_FILE_TYPE_CSV_PATH);
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
 		}
