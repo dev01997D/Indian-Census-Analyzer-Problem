@@ -30,9 +30,21 @@ public class CensusAnalyserTest {
 	public void givenWrongIndianCensusCSVFile_ShouldReturnCustomExceptionTest() {
 		try {
 			CensusAnalyser censusAnalyzerObj = new CensusAnalyser();
-			ExpectedException exceptionRule = ExpectedException.none(); //Allow us to verify the Exception thrown
+			ExpectedException exceptionRule = ExpectedException.none(); // Allow us to verify the Exception thrown
 			exceptionRule.expect(CensusAnalyserException.class);
 			censusAnalyzerObj.loadIndiaCensusData(WRONG_CSV_FILE_PATH);
+		} catch (CensusAnalyserException e) {
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+		}
+	}
+
+	@Test
+	public void givenWrongType_IndianCensusCSVFile_ShouldReturnCustomExceptionTest() {
+		try {
+			CensusAnalyser censusAnalyzerObj = new CensusAnalyser();
+			ExpectedException exceptionRule = ExpectedException.none(); // Allow us to verify the Exception thrown
+			exceptionRule.expect(CensusAnalyserException.class);
+			censusAnalyzerObj.loadIndiaCensusData(CORRECT_CSV_FILE_PATH);
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
 		}
