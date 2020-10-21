@@ -1,5 +1,6 @@
 package com.blz.censusanalyzer.controller;
 
+import com.blz.censusanalyzer.controller.CensusAnalyserException.ExceptionType;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -20,7 +21,7 @@ public class CensusAnalyser {
 
 			CsvToBean<IndiaCensusCSV> csvToBean = csvToBeanBuilder.build();
 			Iterator<IndiaCensusCSV> censusCSVIterator = csvToBean.iterator();
-			
+
 			int numOfEntries = 0;
 			while (censusCSVIterator.hasNext()) {
 				numOfEntries++;
@@ -28,8 +29,29 @@ public class CensusAnalyser {
 			}
 			return numOfEntries;
 		} catch (Exception e) {
-			throw new CensusAnalyserException(e.getMessage(),
-					CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+			throw new CensusAnalyserException(e.getMessage(), ExceptionType.CENSUS_FILE_PROBLEM);
+		}
+	}
+
+	public static int loadIndianStatesCodeData(String stateCodecsvFilePath) throws CensusAnalyserException {
+		try {
+			Reader reader = Files.newBufferedReader(Paths.get(stateCodecsvFilePath));
+
+			CsvToBeanBuilder<CSVStatesCode> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
+			csvToBeanBuilder.withType(CSVStatesCode.class);
+			csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
+
+			CsvToBean<CSVStatesCode> csvToBean = csvToBeanBuilder.build();
+			Iterator<CSVStatesCode> censusCSVIterator = csvToBean.iterator();
+
+			int numOfEntries = 0;
+			while (censusCSVIterator.hasNext()) {
+				numOfEntries++;
+				censusCSVIterator.next();
+			}
+			return numOfEntries;
+		} catch (Exception e) {
+			throw new CensusAnalyserException(e.getMessage(), ExceptionType.CENSUS_FILE_PROBLEM);
 		}
 	}
 }
