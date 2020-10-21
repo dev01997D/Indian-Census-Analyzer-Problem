@@ -3,10 +3,10 @@ package com.blz.censusanalyzer.controller;
 public class CensusAnalyserException extends Exception {
 
     public enum ExceptionType {
-        CENSUS_FILE_PROBLEM, e
+        CENSUS_FILE_PROBLEM;
     }
 
-    ExceptionType type;
+    public ExceptionType type;
 
     public CensusAnalyserException(String message, ExceptionType type) {
         super(message);
